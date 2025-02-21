@@ -1,44 +1,46 @@
 <?php
 // Referrals mod
+function zen_get_sources($sources_id = ''): array
+{
+    global $db;
 
-function zen_get_sources($sources_id = '') {
-	global $db;
-	$sources_array = array();
-	if (zen_not_null($sources_id)) {
-		$sources = "select sources_name
+    if (zen_not_null($sources_id)) {
+        $sources = "select sources_name
                     from " . TABLE_SOURCES . "
                     where sources_id = '" . (int)$sources_id . "'";
-		// $sources_values = $db->Execute($sources);
-		// $sources_array = array('sources_name' => $sources_values->fields['sources_name']);
-	} else {
-		$sources = "select sources_id, sources_name
+    } else {
+        $sources = "select sources_id, sources_name
                   from " . TABLE_SOURCES . "
                   order by sources_name";
-		//$sources_array = array('sources_name' => $sources_values->fields['sources_name']);
-	}
-	$sources_values = $db->Execute($sources);
-	while (!$sources_values->EOF) {
-    $sources_array[] = array('sources_id' => $sources_values->fields['sources_id'],
-                             'sources_name' => $sources_values->fields['sources_name']);
-		$sources_values->MoveNext();
-	}
+    }
+    $sources_values = $db->Execute($sources);
 
-	return $sources_array;
+    $sources_array = [];
+    foreach ($sources_values as $source) {
+        $sources_array[] = [
+            'sources_id' => $sources_values->fields['sources_id'],
+            'sources_name' => $sources_values->fields['sources_name']
+        ];
+    }
+    return $sources_array;
 }
 
 ////rmh referral
 // Creates a pull-down list of sources
-function zen_get_source_list($name, $show_other = false, $selected = 'PULL_DOWN_SOURCES', $parameters = '') {
-	$sources_array = array(array('id' => '', 'text' => PULL_DOWN_SOURCES));
-	$sources = zen_get_sources();
+function zen_get_source_list(string $name, bool $show_other = false, string $selected = '', string $parameters = ''): string
+{
+    $sources_array = [
+        ['id' => '', 'text' => PULL_DOWN_SOURCES],
+    ];
+    $sources = zen_get_sources();
 
-	foreach ($sources as $source) {
-		$sources_array[] = array('id' => $source['sources_id'], 'text' => $source['sources_name']);
-	}
+    foreach ($sources as $source) {
+        $sources_array[] = ['id' => $source['sources_id'], 'text' => $source['sources_name']];
+    }
 
-	if ($show_other == 'true') {
-		$sources_array[] = array('id' => '9999', 'text' => PULL_DOWN_OTHER);
-	}
+    if ($show_other === true) {
+        $sources_array[] = ['id' => '9999', 'text' => PULL_DOWN_OTHER];
+    }
 
-	return zen_draw_pull_down_menu($name, $sources_array, $selected, $parameters);
+    return zen_draw_pull_down_menu($name, $sources_array, $selected, $parameters);
 }
