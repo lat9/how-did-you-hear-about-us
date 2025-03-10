@@ -58,7 +58,7 @@ class zcObserverReferrers extends base
 
     // -----
     // Issued at the end of a template's common/tpl_main_page.php. Load the jQuery module to insert
-    // the Referreal entry-fields at the end of other create-account fields. Note that this event is
+    // the Referral entry-fields at the end of other create-account fields. Note that this event is
     // observed **only** on 'appropriate' pages.
     //
     public function notify_footer_end(&$class, string $e): void
