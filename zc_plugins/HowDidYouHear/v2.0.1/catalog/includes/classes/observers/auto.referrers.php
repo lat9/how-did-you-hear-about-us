@@ -1,4 +1,7 @@
 <?php
+// -----
+// Last updated: v2.0.1.
+//
 class zcObserverReferrers extends base
 {
     public function __construct()
@@ -79,7 +82,7 @@ class zcObserverReferrers extends base
 <?php
         } else {
 ?>
-        jQuery('input[name="email_address"').prev('fieldset').after(<?= json_encode($referrer_field_entry) ?>);
+        jQuery('#email-address').closest('fieldset').after(<?= json_encode($referrer_field_entry) ?>);
 <?php
         }
 ?>
