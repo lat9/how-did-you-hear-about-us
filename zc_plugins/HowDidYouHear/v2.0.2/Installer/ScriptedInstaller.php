@@ -3,7 +3,7 @@
 // Admin-level installation script for the "encapsulated" How Did You Hear About Us plugin for Zen Cart, by lat9.
 // Copyright (C) 2025, Vinos de Frutas Tropicales.
 //
-// Last updated: v2.0.0 (new)
+// Last updated: v2.0.2
 //
 use Zencart\PluginSupport\ScriptedInstaller as ScriptedInstallBase;
 
@@ -57,7 +57,7 @@ class ScriptedInstaller extends ScriptedInstallBase
         }
 
         $this->executeInstallerSql(
-            "INSERT IGNORE INTO configuration
+            "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                 (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added)
              VALUES
                 ('Display \"Other\" Referral option?', 'DISPLAY_REFERRAL_OTHER', 'true', 'Display \"Other - please specify\" with text box in referral source in account creation', 5, 10, 'zen_cfg_select_option([\'true\', \'false\'], ', now()),
