@@ -1,6 +1,6 @@
 <?php
 return [
-    'pluginVersion' => 'v2.0.1',
+    'pluginVersion' => 'v2.0.2',
     'pluginName' => 'How Did You Hear About Us',
     'pluginDescription' => 'This plugin creates a pull-down menu that prompts the customer to identify where they found out about the site.',
     'pluginAuthor' => 'Vinos de Frutas Tropicales (lat9)',
