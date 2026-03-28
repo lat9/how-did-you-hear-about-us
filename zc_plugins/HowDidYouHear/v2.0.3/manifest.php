@@ -1,6 +1,6 @@
 <?php
 return [
-    'pluginVersion' => 'v2.0.2',
+    'pluginVersion' => 'v2.0.3',
     'pluginName' => 'How Did You Hear About Us',
     'pluginDescription' => 'This plugin creates a pull-down menu that prompts the customer to identify where they found out about the site.',
     'pluginAuthor' => 'Vinos de Frutas Tropicales (lat9)',
@@ -9,4 +9,5 @@ return [
     'changelog' => '', // online URL (eg github release tag page, or changelog file there) or local filename only, ie: changelog.txt (in same dir as this manifest file)
     'github_repo' => '', // url
     'pluginGroups' => [],
+    'removesUnencapsulatedVersion' => true, // !empty presence indicates that non-encapsulated files are removed during install
 ];
