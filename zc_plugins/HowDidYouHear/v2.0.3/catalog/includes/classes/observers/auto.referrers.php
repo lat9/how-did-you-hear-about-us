@@ -1,6 +1,6 @@
 <?php
 // -----
-// Last updated: v2.0.1.
+// Last updated: v2.0.3
 //
 class zcObserverReferrers extends base
 {
@@ -49,13 +49,13 @@ class zcObserverReferrers extends base
 
         $db->Execute(
             "UPDATE " . TABLE_CUSTOMERS_INFO . "
-                SET customers_info_source_id = " . (int)$_POST['source'] . "
+                SET customers_info_source_id = " . (int)($_POST['source'] ?? 0) . "
               WHERE customers_info_id = " . (int)$_SESSION['customer_id'] . "
               LIMIT 1"
         );
 
-        if ($_POST['source'] === '9999') {
-            zen_db_perform(TABLE_SOURCES_OTHER, ['customers_id' => $_SESSION['customer_id'], 'sources_other_name' => $_POST['source_other']]);
+        if (($_POST['source'] ?? '0') === '9999') {
+            zen_db_perform(TABLE_SOURCES_OTHER, ['customers_id' => $_SESSION['customer_id'], 'sources_other_name' => $_POST['source_other']] ?? 'not set');
         }
     }
 
