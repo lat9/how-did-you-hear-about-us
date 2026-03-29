@@ -1,9 +1,9 @@
 <?php
 // -----
 // Admin-level installation script for the "encapsulated" How Did You Hear About Us plugin for Zen Cart, by lat9.
-// Copyright (C) 2025, Vinos de Frutas Tropicales.
+// Copyright (C) 2025-2026, Vinos de Frutas Tropicales.
 //
-// Last updated: v2.0.2
+// Last updated: v2.0.3
 //
 use Zencart\PluginSupport\ScriptedInstaller as ScriptedInstallBase;
 
@@ -52,7 +52,12 @@ class ScriptedInstaller extends ScriptedInstallBase
         if (!$sniffer->field_exists(TABLE_CUSTOMERS_INFO, 'customers_info_source_id')) {
             $this->executeInstallerSql(
                 "ALTER TABLE " . TABLE_CUSTOMERS_INFO . "
-                   ADD customers_info_source_id int NOT NULL AFTER customers_info_date_account_last_modified"
+                   ADD customers_info_source_id int NOT NULL DEFAULT 0 AFTER customers_info_date_account_last_modified"
+            );
+        } else {
+            $this->executeInstallerSql(
+                "ALTER TABLE " . TABLE_CUSTOMERS_INFO . "
+                    MODIFY customers_info_source_id int NOT NULL DEFAULT 0"
             );
         }
 
@@ -82,6 +87,10 @@ class ScriptedInstaller extends ScriptedInstallBase
     //
     protected function executeUpgrade($oldVersion)
     {
+        $this->executeInstallerSql(
+            "ALTER TABLE " . TABLE_CUSTOMERS_INFO . "
+                MODIFY customers_info_source_id int NOT NULL DEFAULT 0"
+        );
     }
 
     /**
