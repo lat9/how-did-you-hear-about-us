@@ -48,7 +48,7 @@ if ($action === 'display_other') {
            FROM " . TABLE_CUSTOMERS_INFO . " ci
                 LEFT JOIN " . TABLE_SOURCES . " s
                     ON s.sources_id = ci.customers_info_source_id
-          GROUP BY s.sources_id
+          GROUP BY s.sources_id, s.sources_name
           ORDER BY ci.customers_info_source_id DESC";
 }
 $referrers_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS_REPORTS, $referrals_query_raw, $referrers_query_numrows);
@@ -81,8 +81,8 @@ foreach ($referrers as $referrer) {
     <!-- body_eof //-->
 
     <!-- footer //-->
-    <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'footer.php'; ?>
     <!-- footer_eof //-->
   </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>
