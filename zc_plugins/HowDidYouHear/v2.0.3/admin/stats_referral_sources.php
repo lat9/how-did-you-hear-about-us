@@ -54,9 +54,10 @@ if ($action === 'display_other') {
 $referrers_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS_REPORTS, $referrals_query_raw, $referrers_query_numrows);
 $referrers = $db->Execute($referrals_query_raw);
 foreach ($referrers as $referrer) {
+    $sources_name = (empty($referrer['sources_id'])) ? NONE : (empty($referrer['sources_name']) ? TEXT_OTHER : $referrer['sources_name']);
 ?>
           <tr class="dataTableRow">
-            <td class="dataTableContent"><?= zen_output_string_protected(empty($referrer['sources_name']) ? TEXT_OTHER : $referrer['sources_name']) ?></td>
+            <td class="dataTableContent"><?= zen_output_string_protected($sources_name) ?></td>
             <td class="dataTableContent"><?= $referrer['no_referrals'] ?></td>
           </tr>
 <?php
